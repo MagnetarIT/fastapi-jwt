@@ -243,7 +243,7 @@ class JwtAccess(JwtAuthBase):
         payload = await self._get_payload(bearer, cookie)
 
         if payload:
-            return JwtAuthorizationCredentials(payload["subject"], payload.get("jti", None))
+            return JwtAuthorizationCredentials(payload["sub"], payload.get("jti", None))
         return None
 
 
@@ -363,7 +363,7 @@ class JwtRefresh(JwtAuthBase):
             else:
                 return None
 
-        return JwtAuthorizationCredentials(payload["subject"], payload.get("jti", None))
+        return JwtAuthorizationCredentials(payload["sub"], payload.get("jti", None))
 
 
 class JwtRefreshBearer(JwtRefresh):
