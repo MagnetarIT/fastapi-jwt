@@ -245,8 +245,13 @@ class JwtAccess(JwtAuthBase):
     ) -> Optional[JwtAuthorizationCredentials]:
         payload = await self._get_payload(bearer, cookie)
 
+        creds = {}
+        for item in self.payload_keys:
+            if item in payload:
+                creds[item] = payload[item]
+
         if payload:
-            return JwtAuthorizationCredentials(payload["sub"], payload.get("jti", None))
+            return JwtAuthorizationCredentials(creds, payload.get("jti", None))
         return None
 
 
