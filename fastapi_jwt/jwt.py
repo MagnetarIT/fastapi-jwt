@@ -95,6 +95,7 @@ class JwtAuthBase(ABC):
         self.auto_error = auto_error
         self.access_expires_delta = access_expires_delta or timedelta(minutes=15)
         self.refresh_expires_delta = refresh_expires_delta or timedelta(days=31)
+        self.payload_keys = payload_keys or ["subject"]
 
     @property
     def algorithm(self) -> str:
